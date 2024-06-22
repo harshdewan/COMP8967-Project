@@ -81,11 +81,11 @@ def check_if_post_valid(request):
 
 def load_models():
     # Load CountVectorizer
-    with open(os.path.join(os.path.dirname(__file__), 'ml_model', 'count_vectorizer.pkl'), 'rb') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'ml_model', 'count_vector.pkl'), 'rb') as f:
         count_vectorizer = pickle.load(f)
 
     # Load Naive Bayes classifier
-    with open(os.path.join(os.path.dirname(__file__), 'ml_model', 'naive_bayes.pkl'), 'rb') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'ml_model', 'model.pkl'), 'rb') as f:
         naive_bayes1 = pickle.load(f)
 
     return count_vectorizer, naive_bayes1
