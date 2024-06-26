@@ -140,6 +140,7 @@
                 <li><a href="#">Notifications</a></li>
                 <li><a href="#">Saved posts</a></li>
                 <li><a href="#">Messages</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -149,38 +150,30 @@
                 <a href="#" class="active">Home</a>
                 <a href="#">Following</a>
                 <a href="#">Explore</a>
+                <a href="{% url 'userpost' user_id=user_id %}">New Post</a>
             </nav>
         </header>
+
+        <h1>Your Feed</h1>
         <section class="posts">
-            <article class="post">
-                <div class="post-header">
-                    <img src="profile1.jpg" alt="Profile Picture">
-                    <div>
-                        <h2>Helena</h2>
-                        <p>in Group name • 3 min ago</p>
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="post">
+                        <div class="post-header">
+                            <h3>Posted By: {{ user_email }} </h3>
+                        </div>
+                        <div class="content">
+                            {{ post.content }}
+                        </div>
                     </div>
+                {% endfor %}
+            {% else %}
+                <div class="post">
+                    <p>No Posts Yet</p>
+                    <br>
+                    <p>Go ahead Create New Post!!</p>
                 </div>
-                <img src="tulips.jpg" alt="Post Image">
-                <p>Post description</p>
-                <div class="post-actions">
-                    <span>21 likes</span>
-                    <span>4 comments</span>
-                </div>
-            </article>
-            <article class="post">
-                <div class="post-header">
-                    <img src="profile2.jpg" alt="Profile Picture">
-                    <div>
-                        <h2>Charles</h2>
-                        <p>in Group name • 2 hrs ago</p>
-                    </div>
-                </div>
-                <p>Body text for a post. Since it’s a social app, sometimes it’s a hot take, and sometimes it’s a question.</p>
-                <div class="post-actions">
-                    <span>6 likes</span>
-                    <span>18 comments</span>
-                </div>
-            </article>
+            {% endif %}
         </section>
     </div>
     <div class="sidebar-right">

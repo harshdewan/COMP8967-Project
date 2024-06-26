@@ -59,6 +59,11 @@
             color: #000;
             text-decoration: underline;
         }
+        .signup-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -73,6 +78,9 @@
             <input type="password" name="confirm_password" placeholder="Confirm Password" required>
             <input type="submit" value="REGISTER">
         </form>
+        {% if message %}
+            <div class="signup-message">{{ message }}</div>
+        {% endif %}
         <p>Already user ? <a href="http://localhost:8000/nexpulse/login/">Login</a></p>
         <p>By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
     </div>

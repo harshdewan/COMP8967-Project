@@ -1,47 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Media Post Page</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Post</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
     body {
-      background-color: #f8e9e9;
+        font-family: Arial, sans-serif;
+        ///background-color: #f5f5f5;
+        background-color: #f8e9e9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
-    .post-card {
-      margin-top: 50px;
+    .post-container {
+        width: 60%;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
     }
-    .post-textarea {
-      resize: none;
+    .post-header {
+        display: flex;
+        align-items: center;
     }
-  </style>
+    .profile-pic {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    .profile-name {
+        font-weight: bold;
+    }
+    .post-time {
+        color: #777;
+        font-size: 0.9em;
+    }
+    .post-content {
+        background-color: #f8f8f8;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+    .post-content p {
+        margin: 0;
+        line-height: 1.5;
+    }
+    .post-footer {
+        display: flex;
+        justify-content: space-between;
+    }
+    .post-footer .likes-comments {
+        color: #555;
+    }
+    .spam-message {
+        color: red;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+    }
+    .button-group .btn {
+        flex: 1;
+        margin: 0 5px;
+    }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card post-card">
-          <div class="card-body">
-            <h5 class="card-title">Create a Post</h5>
-            <form id="userPostForm" method="post" action="{% url 'mypost' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <textarea class="form-control post-textarea" name="userpost_content" rows="5" placeholder="What's on your mind?" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Post</button>
-            </form>
 
-          </div>
+<div class="post-container">
+    <div class="post-header">
+        <img class="profile-pic" src="https://via.placeholder.com/40" alt="Profile Picture">
+        <div>
+            <div class="profile-name">{{ user_name }}</div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <form id="userPostForm" method="post" action="{% url 'userpost' user_id=user_id %}">
+        {% csrf_token %}
+        <div class="post-content">
+            <textarea class="form-control post-textarea" name="userpost_content" rows="5" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Post</button>
+            <a href="{% url 'home' user_id=user_id %}" class="btn btn-primary">Home</a>
+        </div>
+    </form>
+    {% if display_message %}
+    <div class="spam-message">{{ display_message }}</div>
+    {% endif %}
+</div>
+
 </body>
 </html>
