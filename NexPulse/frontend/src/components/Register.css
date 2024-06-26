@@ -1,0 +1,11 @@
+.register{
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    height: 540px;
+    margin-top: 12%;
+}
+input.labels {
+    background: #EFD7D7;
+    border-radius: 5%;
+}

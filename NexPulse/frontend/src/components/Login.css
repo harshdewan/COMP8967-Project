@@ -1,0 +1,146 @@
+.login{
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    height: 540px;
+    margin-top: 12%;
+}
+
+input.labels {
+    background: #EFD7D7;
+    border-radius: 5%;
+}
+link{
+    
+}
+
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8e9e9;
+}
+.suggested-people{
+background: #FFEFEF;
+}
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.sidebar h1 {
+    font-size: 24px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+header nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: gray;
+    font-size: 18px;
+}
+
+header nav a.active {
+    color: black;
+    font-weight: bold;
+}
+
+.posts .post {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.post-header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.post img {
+    width: 100%;
+    border-radius: 5px;
+    margin: 10px 0;
+    height: 50px;
+}
+
+img.postt{
+    width: 100%;
+    border-radius: 5px;
+    margin: 10px 0;
+    height: auto;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    font-size: 14px;
+}
+
+.sidebar-right {
+    width: 250px;
+    padding: 20px;
+}
+
+.sidebar-right section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.sidebar-right h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.sidebar-right ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-right ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sidebar-right ul li img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
