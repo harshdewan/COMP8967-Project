@@ -4,7 +4,7 @@ charset-normalizer==3.3.2
 contourpy==1.2.1
 cycler==0.12.1
 distlib==0.3.8
-Django==5.0.6
+Django==4.2.14
 django-extensions==3.2.3
 django-filter==24.2
 django-html==0.1.0
