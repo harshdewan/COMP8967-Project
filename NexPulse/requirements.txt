@@ -8,6 +8,7 @@ dj-database-url==2.2.0
 Django==4.2.14
 django-extensions==3.2.3
 django-filter==24.2
+django-crispy-forms==2.2
 django-html==0.1.0
 django-htmx==1.18.0
 django-rest-framework==0.1.0
