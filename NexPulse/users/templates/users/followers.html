@@ -72,78 +72,49 @@
             font-weight: bold;
         }
 
-        .edit-profile-form {
+        .follower-card {
             background-color: #34495e;
             padding: 20px;
             border-radius: 5px;
-            width: 600px;
             display: flex;
-            justify-content: space-between;
-            margin: 10px;
+            align-items: center;
+            margin: 10px 0;
         }
 
-        .edit-profile-form label {
-            display: inline;
-            margin: 10px 0 5px;
-        }
-
-        .edit-profile-form input {
-            width: 400px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            background-color: #cccccc;
-            margin-left: 20px;
-        }
-
-        .edit-profile-form button {
-            display: block;
+        .follower-icon {
             background-color: #1abc9c;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
             color: #2c3e50;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
+            margin-right: 20px;
         }
 
-        .edit-profile-form button:hover {
-            background-color: #16a085;
+        .follower-info {
+            display: flex;
+            flex-direction: column;
         }
 
-        .field {
-            margin-top: 10px;
+        .follower-info h3 {
+            margin: 0;
+            font-size: 18px;
         }
 
-        .field label {
-            display: inline-block;
-            width: 100px;
+        .follower-info h4 {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #bdc3c7;
         }
 
-        .edit-btn {
-            text-decoration: none;
-            border: 1px solid #1abc9c;
-            width: 100px;
+        .no-followers {
             text-align: center;
-            height: 40px;
-            border-radius: 5px;
-            margin: 0px;
-        }
-
-        .edit-btn:hover {
-            background-color: #1abc9c;
-            color: white;
-        }
-
-        .profilename a{
-            text-decoration: none;
-            color: white;
-        }
-
-        .edit-btn.following {
-            background-color: #61dafb;
-            color: #2c3e50;
+            font-size: 24px;
+            color: #ecf0f1;
+            margin-top: 50px;
         }
 
     </style>
@@ -154,7 +125,7 @@
         <nav>
             <ul>
                 <li><a href="#" class="active">My Followers</a></li>
-                <li><a href="{% url 'profile' user_id=user_id%}">My Profile</a></li>
+                <li><a href="{% url 'profile' user_id=user_id %}">My Profile</a></li>
             </ul>
         </nav>
     </div>
@@ -166,18 +137,20 @@
         </header>
         {% if followers %}
             {% for user1 in followerList %}
-                <section class="edit-profile-form">
-                    <div class="profilename">
-
-                        <h3>Id: {{ user1.id }}</h3>
-                        <h3>FirstName: {{ user1.first_name }} LastName: {{ user1.last_name }}</h3>
-                        <h4><a href="#">@ {{ user1.username }}</a></h4>
+                <section class="follower-card">
+                    <div class="follower-icon">{{ user1.first_name|slice:":1" }}{{ user1.last_name|slice:":1" }}</div>
+                    <div class="follower-info">
+                        <h3>{{ user1.first_name }} {{ user1.last_name }}</h3>
+                        <h4>@{{ user1.username }}</h4>
                     </div>
                 </section>
             {% endfor %}
         {% else %}
-             <section class="edit-profile-form">
-             <h2>No profiles to show</h2>
+             <section class="no-followers">
+                 <div>
+                     <img src="path/to/your/icon.png" alt="No Followers Icon">
+                     <h2>No profiles to show</h2>
+                 </div>
              </section>
         {% endif %}
     </div>
