@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'NexPulse.wsgi.app'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nexPulseDB',  # Replace with your database name
-        'USER': 'dewanh',      # Replace with your database user
-        'PASSWORD': 'dewanharsh',  # Replace with your database password
+        'NAME': 'nexpulsedb',  # Replace with your database name
+        'USER': 'root',      # Replace with your database user
+        'PASSWORD': 'Narayan',  # Replace with your database password
         'HOST': 'localhost',
         'PORT': '3306',
     }
