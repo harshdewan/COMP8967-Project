@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexPulse - Home</title>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --base-font-size: 16px;
+        }
+
         body {
+            font-size: var(--base-font-size);
             display: flex;
             margin: 0;
             font-family: Arial, sans-serif;
@@ -20,7 +27,7 @@
         }
 
         .sidebar h1 {
-            font-size: 24px;
+            font-size: 1.5em;
             color: #1abc9c;
             margin-bottom: 70px;
         }
@@ -37,7 +44,7 @@
         .sidebar nav ul li a {
             text-decoration: none;
             color: #ecf0f1;
-            font-size: 18px;
+            font-size: 1.125em;
             display: block;
             padding: 10px;
             border-radius: 5px;
@@ -64,7 +71,7 @@
             margin-right: 20px;
             text-decoration: none;
             color: #1abc9c;
-            font-size: 18px;
+            font-size: 1.125em;
         }
 
         header nav a.active {
@@ -72,77 +79,101 @@
             font-weight: bold;
         }
 
-        .posts .post {
+        .posts .post, .posts .spam-post {
             background-color: #34495e;
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 20px;
             border-radius: 5px;
             position: relative;
             display: flex;
             flex-direction: column;
             width: 700px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .posts .spam-post {
-            background-color: #34495e;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
             border: red 2px solid;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            width: 700px;
         }
 
         .post-header {
             display: flex;
             align-items: center;
+            margin-bottom: 10px;
         }
 
-        .post-header img {
+        .profile-icon {
+            background-color: #1abc9c;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #2c3e50;
             margin-right: 10px;
         }
 
-        .post img {
-            width: 100%;
-            border-radius: 5px;
-            margin: 10px 0;
+        .post-header .email {
+            font-size: 1em;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        .post-content {
+            margin-bottom: 10px;
+            font-size: 1em;
+            line-height: 1.5;
         }
 
         .post-actions {
             display: flex;
-            justify-content: space-between;
-            color: #bdc3c7;
-            font-size: 14px;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .post-header {
-            display: flex;
-            flex-direction: row-reverse;
-            margin-top: 30px;
-        }
-
-        .post-header button {
-            border: 1px solid #1abc9c;
+        .post-actions button {
+            border: none;
             border-radius: 5px;
-            margin: 5px;
-            height: auto;
-            width: auto;
-            text-decoration: none;
+            padding: 5px 10px;
             color: white;
             background-color: #1abc9c;
-            padding: 5px;
-            text-align: center;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .post-actions button:hover {
+            background-color: #16a085;
         }
 
         .posts .post.spam-marked,
         .posts .spam-post.spam-marked {
             display: none !important;
+        }
+
+        .font-size-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .font-size-btn {
+            background-color: #3a3f44;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .font-size-btn:hover {
+            background-color: #2a2f34;
         }
     </style>
 </head>
@@ -167,12 +198,11 @@
                 <a href="{% url 'following' user_id=user_id%}">Following</a>
                 <a href="{% url 'followers' user_id=user_id%}">Followers</a>
                 <a href="{% url 'userpost' user_id=user_id %}">New Post</a>
-                <div class="font-size-buttons">
-                    <button onclick="adjustFontSize('increase')" class="btn">A+</button>
-                    <button onclick="adjustFontSize('decrease')" class="btn">A-</button>
+                <div class="font-size-controls">
+                    <button onclick="adjustFontSize('increase')" class="font-size-btn">A+</button>
+                    <button onclick="adjustFontSize('decrease')" class="font-size-btn">A-</button>
                 </div>
             </nav>
-
         </header>
         <h1>Your Feed</h1>
         <section class="posts">
@@ -183,20 +213,29 @@
                     {% else %}
                         <div class="post">
                     {% endif %}
-                            <div class="content">
-                                <h3>Posted By: {{ postContext.post.user.email_id }}</h3>
-                                {{ postContext.post.content }}
-                                <br><br>
-                                {{ postContext.post.id }}
-                            </div>
                             <div class="post-header">
-                                <button class="report-spam" data-postid="{{ postContext.post.id }}", current-user-id="{{ user_id }}", seemsScam="{{ postContext.post.isScam }}">Report Spam</button>
+                                <div class="profile-icon">{{ postContext.post.user.first_name|slice:":1" }}{{ postContext.post.user.last_name|slice:":1" }}</div>
+                                <div class="email">{{ postContext.post.user.email_id }}</div>
+                            </div>
+                            <div class="post-content">
+                                {{ postContext.post.content }}
+                            </div>
+                            <div class="post-actions">
+                                <button class="post-likes" data-postid="{{ postContext.post.id }}" current-user-id="{{ user_id }}">
+                                   {{ postContext.post.totalLikes }} Likes
+                                </button>
                                 {% if postContext.isSaved %}
-                                    <button class="save-post" data-postid="{{ postContext.post.id }}", current-user-id="{{ user_id }}">Post Saved</button>
+                                    <button class="save-post" data-postid="{{ postContext.post.id }}" current-user-id="{{ user_id }}">
+                                        Post Saved
+                                    </button>
                                 {% else %}
-                                    <button class="save-post" data-postid="{{ postContext.post.id }}", current-user-id="{{ user_id }}">Save Post</button>
+                                    <button class="save-post" data-postid="{{ postContext.post.id }}" current-user-id="{{ user_id }}">
+                                        Save Post
+                                    </button>
                                 {% endif %}
-                                <button class="post-likes" data-postid="{{ postContext.post.id }}", current-user-id="{{ user_id }}">{{ postContext.post.totalLikes }} Likes</button>
+                                <button class="report-spam" data-postid="{{ postContext.post.id }}" current-user-id="{{ user_id }}" seemsScam="{{ postContext.post.isScam }}">
+                                    <i class="fas fa-flag"></i> Report Spam
+                                </button>
                             </div>
                         </div>
                 {% endfor %}
@@ -210,47 +249,57 @@
         </section>
     </div>
     <script>
-            document.addEventListener('DOMContentLoaded', function() {
+        function adjustFontSize(action) {
+            const root = document.documentElement;
+            let currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size'));
+
+            if (action === 'increase') {
+                currentSize += 2;
+            } else if (action === 'decrease') {
+                currentSize -= 2;
+            }
+
+            root.style.setProperty('--base-font-size', currentSize + 'px');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
             const likeButton = document.querySelectorAll('.post-likes');
             const saveButton = document.querySelectorAll('.save-post');
             const reportSpamButton = document.querySelectorAll('.report-spam');
             reportSpamButton.forEach(button => {
                 button.addEventListener('click', function() {
-                    console.log("like AJAX")
+                    console.log("like AJAX");
                     const postId = this.getAttribute('data-postid');
                     const userId = this.getAttribute('current-user-id');
                     const seemsScam = this.getAttribute('seemsScam');
                     let section = '';
-                    console.log("before comparing: seemsScam: <", seemsScam,">", " length: ", seemsScam.length)
-                    if( seemsScam.length == 4 ) {
+                    console.log("before comparing: seemsScam: <", seemsScam, ">", " length: ", seemsScam.length);
+                    if (seemsScam.length == 4) {
                         section = this.closest('.spam-post');
-                    }
-                    else {
+                    } else {
                         section = this.closest('.post');
                     }
-                    console.log("postId: ", postId, " userId: ", userId, "seemScam: ", seemsScam, "section: ", section)
+                    console.log("postId: ", postId, " userId: ", userId, "seemScam: ", seemsScam, "section: ", section);
                     fetch('{% url "report-post-spam"%}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': '{{ csrf_token }}'
                         },
-                        body: JSON.stringify({ postId:postId, userId:userId})
+                        body: JSON.stringify({ postId: postId, userId: userId })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
                             console.log("javascript: message: ", data.message);
-                            if( data.action == 'spam-report-success') {
+                            if (data.action == 'spam-report-success') {
                                 this.textContent = 'Spam Reported';
-                            }
-                            else if (data.message === 'disable-post') {
+                            } else if (data.message === 'disable-post') {
                                 this.textContent = 'Spam Reported';
                                 section.classList.add('spam-marked');
                                 console.log('Class added:', section.classList);
-                            }
-                            else if (data.action == 'spam-report-unsuccess') {
-                                console.log("inside else if")
+                            } else if (data.action == 'spam-report-unsuccess') {
+                                console.log("inside else if");
                             }
                         } else {
                             alert(data.message);
@@ -261,30 +310,28 @@
             });
             likeButton.forEach(button => {
                 button.addEventListener('click', function() {
-                    console.log("like AJAX")
+                    console.log("like AJAX");
                     const postId = this.getAttribute('data-postid');
-                    const userId = this.getAttribute('current-user-id')
-                    console.log("postId: ", postId, " userId: ", userId)
+                    const userId = this.getAttribute('current-user-id');
+                    console.log("postId: ", postId, " userId: ", userId);
                     fetch('{% url "update-post-like"%}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': '{{ csrf_token }}'
                         },
-                        body: JSON.stringify({ postId:postId, userId:userId})
+                        body: JSON.stringify({ postId: postId, userId: userId })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            console.log("javascript: status: ", data.action)
-                            console.log("likes received: ", data.currentLikes)
+                            console.log("javascript: status: ", data.action);
+                            console.log("likes received: ", data.currentLikes);
                             if (data.action === 'liked-success') {
-                                this.textContent = data.currentLikes + ' Likes'
-
-                            }
-                            else if (data.action == 'unliked-success') {
-                                console.log("inside else if")
-                                this.textContent = data.currentLikes + ' Likes'
+                                this.textContent = data.currentLikes + ' Likes';
+                            } else if (data.action == 'unliked-success') {
+                                console.log("inside else if");
+                                this.textContent = data.currentLikes + ' Likes';
                             }
                         } else {
                             alert(data.message);
@@ -295,28 +342,27 @@
             });
             saveButton.forEach(button => {
                 button.addEventListener('click', function() {
-                    console.log("save post AJAX")
+                    console.log("save post AJAX");
                     const postId = this.getAttribute('data-postid');
-                    const userId = this.getAttribute('current-user-id')
-                    console.log("postId: ", postId, " userId: ", userId)
+                    const userId = this.getAttribute('current-user-id');
+                    console.log("postId: ", postId, " userId: ", userId);
                     fetch('{% url "savepost"%}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': '{{ csrf_token }}'
                         },
-                        body: JSON.stringify({ postId:postId, userId:userId})
+                        body: JSON.stringify({ postId: postId, userId: userId })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            console.log("javascript: status: ", data.action)
+                            console.log("javascript: status: ", data.action);
                             if (data.action === 'saved-success') {
-                                this.textContent = 'Post Saved'
-                            }
-                            else if (data.action == 'unsaved-success') {
-                                console.log("inside else if")
-                                this.textContent = 'Save Post'
+                                this.textContent = 'Post Saved';
+                            } else if (data.action == 'unsaved-success') {
+                                console.log("inside else if");
+                                this.textContent = 'Save Post';
                             }
                         } else {
                             alert(data.message);
