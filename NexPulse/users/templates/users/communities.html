@@ -4,25 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexPulse - Communities</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
         }
         .sidebar {
             width: 250px;
-            background-color: #34495e;
+            background: linear-gradient(135deg, #6DD5FA, #2980B9);
             padding: 20px;
             height: 100vh;
+            color: #fff;
         }
 
         .sidebar h1 {
             font-size: 24px;
-            color: #1abc9c;
-            margin-bottom: 70px;
+            color: #fff;
+            margin-bottom: 50px;
+            text-align: center;
         }
 
         .sidebar nav ul {
@@ -36,77 +40,101 @@
 
         .sidebar nav ul li a {
             text-decoration: none;
-            color: #ecf0f1;
+            color: #fff;
             font-size: 18px;
             display: block;
             padding: 10px;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar nav ul li a:hover,
         .sidebar nav ul li a.active {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: #ffffff50;
         }
 
         .main-content {
             flex: 1;
-            padding: 20px;
+            padding: 40px;
         }
 
         header {
-            border-bottom: 1px solid #1abc9c;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header nav a {
             margin-right: 20px;
             text-decoration: none;
-            color: #1abc9c;
+            color: #3498db;
             font-size: 18px;
         }
 
         header nav a.active {
-            color: #ecf0f1;
+            color: #2c3e50;
             font-weight: bold;
         }
 
+        .content-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
         .edit-profile-form {
-            background-color: #34495e;
-            padding: 20px;
-            border-radius: 5px;
-            width: 600px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
         }
 
         .edit-profile-form label {
-            display: inline;
+            display: block;
             margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333;
         }
 
         .edit-profile-form input {
-            width: 400px;
+            width: calc(100% - 20px);
             padding: 10px;
-            border: none;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            margin-bottom: 10px;
-            background-color: #cccccc;
-            margin-left: 20px;
+            margin-bottom: 20px;
+            font-size: 16px;
         }
 
         .edit-profile-form button {
             display: block;
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: #3498db;
+            color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
         }
 
         .edit-profile-form button:hover {
-            background-color: #16a085;
+            background-color: #2980b9;
         }
 
         .field {
@@ -117,7 +145,6 @@
             display: inline-block;
             width: 100px;
         }
-
     </style>
 </head>
 <body>
@@ -136,14 +163,14 @@
             </nav>
         </header>
         {% if communitiesPresent %}
-            <section class="edit-profile-form">
+            <section class="content-section">
+                <!-- Communities content will be here -->
             </section>
         {% else %}
-             <section class="edit-profile-form">
-             <h2>No Communities to show</h2>
-             </section>
+            <section class="content-section">
+                <h2>No Communities to show</h2>
+            </section>
         {% endif %}
     </div>
-
 </body>
 </html>

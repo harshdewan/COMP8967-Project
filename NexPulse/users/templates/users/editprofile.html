@@ -5,81 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexPulse - Edit Profile</title>
     <style>
+        :root {
+            --base-font-size: 16px;
+            --primary-color: #ff6f61;
+            --secondary-color: #f7f7f7;
+            --accent-color: #ffcc5c;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --header-footer-color: #ff9a8b;
+            --profile-card-bg: #ffecb3; /* Light yellow for profile cards */
+            --form-bg: #ffffff; /* Background for form section */
+            --font-family: 'Roboto', sans-serif;
+        }
+
         body {
+            font-size: var(--base-font-size);
             display: flex;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
+
         .sidebar {
             width: 250px;
-            background-color: #34495e;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .sidebar h1 {
-            font-size: 24px;
-            color: #1abc9c;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            margin-bottom: 50px;
         }
 
         .sidebar nav ul {
             list-style-type: none;
             padding: 0;
+            width: 100%;
         }
 
         .sidebar nav ul li {
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .sidebar nav ul li a {
             text-decoration: none;
-            color: #ecf0f1;
-            font-size: 18px;
+            color: var(--secondary-color);
+            font-size: 1.2em;
             display: block;
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar nav ul li a:hover,
         .sidebar nav ul li a.active {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         .main-content {
             flex: 1;
             padding: 20px;
+            background-color: var(--secondary-color);
         }
 
         header {
-            border-bottom: 1px solid #1abc9c;
+            border-bottom: 2px solid var(--header-footer-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header nav a {
             margin-right: 20px;
             text-decoration: none;
-            color: #1abc9c;
-            font-size: 18px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            transition: color 0.3s;
         }
 
         header nav a.active {
-            color: #ecf0f1;
+            color: var(--accent-color);
             font-weight: bold;
         }
 
         .edit-profile-form {
-            background-color: #34495e;
+            background-color: var(--form-bg); /* White background for form */
             padding: 20px;
             border-radius: 5px;
             width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
         }
 
         .edit-profile-form label {
             display: inline;
             margin: 10px 0 5px;
+            font-weight: bold;
         }
 
         .edit-profile-form input {
@@ -88,23 +118,24 @@
             border: none;
             border-radius: 5px;
             margin-bottom: 10px;
-            background-color: #cccccc;
+            background-color: #cccccc; /* Light grey for input fields */
             margin-left: 20px;
         }
 
         .edit-profile-form button {
             display: block;
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: var(--primary-color); /* Match button color with primary color */
+            color: var(--secondary-color);
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s;
         }
 
         .edit-profile-form button:hover {
-            background-color: #16a085;
+            background-color: #ff5a47; /* Slightly darker on hover */
         }
 
         .field {
@@ -114,6 +145,10 @@
         .field label {
             display: inline-block;
             width: 100px;
+        }
+
+        h1 {
+            color: var(--primary-color); /* Match header color with primary color */
         }
 
     </style>
@@ -152,10 +187,10 @@
                     <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
                 </div>
 
-               <div class="field">
-                   <label for="email">Email</label>
-                   <input type="email" id="email" name="email" value="{{ user.email_id }}" required>
-               </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email_id }}" required>
+                </div>
 
                 <div class="field">
                     <label for="username">Username</label>

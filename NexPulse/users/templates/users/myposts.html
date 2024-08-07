@@ -4,82 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexPulse - My Posts</title>
-    <style>
+       <style>
+       :root {
+            --base-font-size: 16px;
+            --primary-color: #ff6f61;
+            --secondary-color: #f7f7f7;
+            --accent-color: #ffcc5c;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --header-footer-color: #ff9a8b;
+            --font-family: 'Roboto', sans-serif;
+        }
+
         body {
+            font-size: var(--base-font-size);
             display: flex;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         .sidebar {
             width: 250px;
-            background-color: #34495e;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             padding: 20px;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .sidebar h1 {
-            font-size: 24px;
-            color: #1abc9c;
-            margin-bottom: 70px;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            margin-bottom: 50px;
         }
 
         .sidebar nav ul {
             list-style-type: none;
             padding: 0;
+            width: 100%;
         }
 
         .sidebar nav ul li {
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .sidebar nav ul li a {
             text-decoration: none;
-            color: #ecf0f1;
-            font-size: 18px;
+            color: var(--secondary-color);
+            font-size: 1.2em;
             display: block;
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar nav ul li a:hover,
         .sidebar nav ul li a.active {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         .main-content {
             flex: 1;
             padding: 20px;
+            background-color: var(--secondary-color);
         }
 
         header {
-            border-bottom: 1px solid #1abc9c;
+            border-bottom: 2px solid var(--header-footer-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header nav a {
             margin-right: 20px;
             text-decoration: none;
-            color: #1abc9c;
-            font-size: 18px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            transition: color 0.3s;
         }
 
         header nav a.active {
-            color: #ecf0f1;
+            color: var(--accent-color);
             font-weight: bold;
         }
 
         .post-card {
-            background-color: #34495e;
+            background-color: #fff; /* White background for post cards */
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .post-header {
@@ -89,7 +113,7 @@
         }
 
         .profile-icon {
-            background-color: #1abc9c;
+            background-color: #ffb300; /* Yellow for profile icon */
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -97,7 +121,7 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            color: #2c3e50;
+            color: #5d4037; /* Dark brown text for the icon */
             margin-right: 10px;
         }
 
@@ -109,18 +133,26 @@
         .post-user-info .name {
             font-size: 16px;
             font-weight: bold;
-            color: #ecf0f1;
+            color: #5d4037; /* Dark brown for names */
         }
 
         .post-user-info .username {
             font-size: 14px;
-            color: #bdc3c7;
+            color: #8d6e63; /* Light brown for usernames */
         }
 
         .post-content {
             margin-top: 10px;
             font-size: 16px;
             line-height: 1.5;
+            color: #5d4037; /* Dark brown for post content */
+        }
+
+        /* No posts message */
+        .no-posts {
+            text-align: center;
+            font-size: 18px;
+            color: #e65100; /* Dark orange for no posts message */
         }
     </style>
 </head>

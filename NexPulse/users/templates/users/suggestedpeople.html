@@ -3,119 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexPulse - Edit Profile</title>
+    <title>NexPulse - Suggested People</title>
     <style>
+        :root {
+            --base-font-size: 16px;
+            --primary-color: #3498db; /* Primary color for the application */
+            --secondary-color: #f7f9fc; /* Light background color */
+            --accent-color: #ffcc5c; /* Accent color */
+            --background-color: #ffffff; /* White background */
+            --text-color: #333333; /* Dark text color */
+            --header-footer-color: #2980b9; /* Header/Footer color */
+            --form-bg: #ffffff; /* Background for form section */
+            --font-family: 'Roboto', sans-serif; /* Font family */
+        }
+
         body {
+            font-size: var(--base-font-size);
             display: flex;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
+
         .sidebar {
             width: 250px;
-            background-color: #34495e;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .sidebar h1 {
-            font-size: 24px;
-            color: #1abc9c;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            margin-bottom: 50px;
         }
 
         .sidebar nav ul {
             list-style-type: none;
             padding: 0;
+            width: 100%;
         }
 
         .sidebar nav ul li {
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .sidebar nav ul li a {
             text-decoration: none;
-            color: #ecf0f1;
-            font-size: 18px;
+            color: var(--secondary-color);
+            font-size: 1.2em;
             display: block;
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar nav ul li a:hover,
         .sidebar nav ul li a.active {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         .main-content {
             flex: 1;
             padding: 20px;
+            background-color: var(--secondary-color);
         }
 
         header {
-            border-bottom: 1px solid #1abc9c;
+            border-bottom: 2px solid var(--header-footer-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header nav a {
             margin-right: 20px;
             text-decoration: none;
-            color: #1abc9c;
-            font-size: 18px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            transition: color 0.3s;
         }
 
         header nav a.active {
-            color: #ecf0f1;
+            color: var(--accent-color);
             font-weight: bold;
         }
 
-        .edit-profile-form {
-            background-color: #34495e;
+        .profile-card {
+            background-color: var(--background-color);
             padding: 20px;
             border-radius: 5px;
-            width: 600px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .edit-profile-form label {
-            display: inline;
-            margin: 10px 0 5px;
+        .profile-info {
+            display: flex;
+            align-items: center;
         }
 
-        .edit-profile-form input {
-            width: 400px;
-            padding: 10px;
+        .profile-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .profile-info .name {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .profile-info .username {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+
+        .follow-btn {
+            background-color: var(--primary-color);
+            color: #ffffff;
             border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            background-color: #cccccc;
-            margin-left: 20px;
-        }
-
-        .edit-profile-form button {
-            display: block;
-            background-color: #1abc9c;
-            color: #2c3e50;
             padding: 10px 20px;
-            border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.3s;
         }
 
-        .edit-profile-form button:hover {
-            background-color: #16a085;
+        .follow-btn:hover {
+            background-color: #2980b9; /* Darker shade on hover */
         }
 
-        .field {
-            margin-top: 10px;
+        .no-suggestions {
+            text-align: center;
+            font-size: 18px;
+            color: var(--text-color);
+            padding: 20px;
         }
-
-        .field label {
-            display: inline-block;
-            width: 100px;
-        }
-
     </style>
 </head>
 <body>
@@ -123,8 +158,7 @@
         <h1>NexPulse</h1>
         <nav>
             <ul>
-                <li><a href="#" class="active">Edit Profile</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="#" class="active">Suggested People</a></li>
             </ul>
         </nav>
     </div>
@@ -132,52 +166,63 @@
         <header>
             <nav>
                 <a href="{% url 'home' user_id=user_id %}">Home</a>
-                <a href="{% url 'following' %}">Following</a>
-                <a href="{% url 'explore' %}">Explore</a>
-                <a href="{% url 'userpost' user_id=user_id %}">New Post</a>
             </nav>
         </header>
-
-        <h1>Edit Profile</h1>
-        <section class="edit-profile-form">
-            <form action="{% url 'editprofile' user_id=user_id %}" method="POST">
-                {% csrf_token %}
-                <div class="field">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
-                </div>
-
-                <div class="field">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
-                </div>
-
-               <div class="field">
-                   <label for="email">Email</label>
-                   <input type="email" id="email" name="email" value="{{ user.email_id }}" required>
-               </div>
-
-                <div class="field">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" value="{{ user.username }}" required>
-                </div>
-
-                <div class="field">
-                    <label for="city">City</label>
-                    <input type="text" id="city" name="city" value="{{ user.city }}" required>
-                </div>
-
-                <div class="field">
-                    <label for="country">Country</label>
-                    <input type="text" id="country" name="country" value="{{ user.country }}" required>
-                </div>
-                <div class="field">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" value="{{ user.password }}" required>
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
+        {% if suggestedPeoplePresent %}
+            {% for user1 in userList %}
+                {% if user1.id != user_id %}
+                    <section class="profile-card">
+                        <div class="profile-info">
+                            <img src="{% if user1.profile_image %}{{ user1.profile_image.url }}{% else %}https://via.placeholder.com/50{% endif %}" alt="ProfileImage">
+                            <div>
+                                <div class="name">{{ user1.first_name }} {{ user1.last_name }}</div>
+                                <div class="username">@{{ user1.username }}</div>
+                            </div>
+                        </div>
+                        <button class="follow-btn" data-user-id1="{{ user_id }}" data-user-id2="{{ user1.id }}">Follow</button>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <section class="no-suggestions">
+                <h2>No User suggestions to show</h2>
+            </section>
+        {% endif %}
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const followButtons = document.querySelectorAll('.follow-btn');
+            followButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId1 = this.getAttribute('data-user-id1');
+                    const userId2 = this.getAttribute('data-user-id2');
+                    console.log("userId1: ", userId1, " userId2: ", userId2);
+                    fetch('{% url "follow_user"%}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({ user_id1: userId1, user_id2: userId2 })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            if (data.action === 'followed') {
+                                this.textContent = 'Unfollow';
+                                this.classList.add('following');
+                            } else {
+                                this.textContent = 'Follow';
+                                this.classList.remove('following');
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
 </body>
 </html>
