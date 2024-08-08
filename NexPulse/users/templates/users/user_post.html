@@ -59,9 +59,16 @@
             margin-right: 10px;
         }
 
+        .follower-info {
+            display: flex;
+            flex-direction: column;
+        }
+
         .profile-name {
             font-weight: bold;
             color: var(--primary-color); /* Primary color for the name */
+            font-size: medium;
+
         }
 
         .post-content {
@@ -123,8 +130,12 @@
 
 <div class="post-container">
     <div class="post-header">
-        <div class="profile-icon">AM</div> <!-- Profile icon with initials -->
-        <div class="profile-name">ammar@uwindsor.ca</div>
+{#        <div class="profile-icon">AM</div> <!-- Profile icon with initials -->#}
+{#        <div class="profile-name">ammar@uwindsor.ca</div>#}
+         <div class="profile-icon">{{ user_name.first_name|slice:":1" }}{{ user_name.last_name|slice:":1" }}</div>
+         <div class="profile-name">
+                <h3>{{ user_name.email_id }}</h3>
+         </div>
     </div>
 
     <form id="userPostForm" method="post" action="{% url 'userpost' user_id=user_id %}">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexPulse - Suggested People</title>
     <style>
-      :root {
+        :root {
             --base-font-size: 16px;
             --primary-color: #ff6f61;
             --secondary-color: #f7f7f7;
@@ -13,7 +13,7 @@
             --background-color: #ffffff;
             --text-color: #333333;
             --header-footer-color: #ff9a8b;
-            --form-bg: #ffffff; /* Background for form section */
+            --profile-card-bg: #ffecb3; /* Light yellow for profile cards */
             --font-family: 'Roboto', sans-serif;
         }
 
@@ -97,93 +97,58 @@
             font-weight: bold;
         }
 
-        .edit-profile-form {
-            background-color: var(--form-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .edit-profile-form label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .edit-profile-form input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .edit-profile-form button {
-            display: block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        .edit-profile-form button:hover {
-            background-color: #e05d5d; /* Darker shade on hover */
-        }
-
-        .field {
-            margin-top: 10px;
-        }
-
-        .field label {
-            display: inline-block;
-            width: 150px;
-        }
         .profile-card {
-            background-color: #34495e;
+            background-color: var(--profile-card-bg); /* Set profile card background to light yellow */
             padding: 20px;
             border-radius: 5px;
             margin: 10px 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
         }
+
         .profile-info {
             display: flex;
             align-items: center;
         }
-        .profile-info img {
+
+        .profile-icon {
+            background-color: var(--primary-color); /* Match profile icon color with primary color */
+            border-radius: 50%;
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--secondary-color); /* White text color */
             margin-right: 20px;
         }
+
         .profile-info .name {
             font-size: 18px;
             margin-bottom: 5px;
+            color: var(--text-color); /* Dark text color for name */
         }
+
         .profile-info .username {
             font-size: 14px;
-            color: #bdc3c7;
+            color: #8d6e63; /* Light brown for usernames */
         }
+
         .follow-btn {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: var(--primary-color); /* Match button with primary color */
+            color: var(--secondary-color); /* White text color */
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         .follow-btn:hover {
-            background-color: #16a085;
+            background-color: #ff5e3a; /* Darker orange on hover */
         }
     </style>
 </head>
@@ -207,7 +172,7 @@
                 {% if user1.id != user_id %}
                     <section class="profile-card">
                         <div class="profile-info">
-                            <img src="{% if user1.profile_image %}{{ user1.profile_image.url }}{% else %}https://via.placeholder.com/50{% endif %}" alt="ProfileImage">
+                            <div class="profile-icon">{{ user1.first_name|slice:":1" }}{{ user1.last_name|slice:":1" }}</div>
                             <div>
                                 <div class="name">{{ user1.first_name }} {{ user1.last_name }}</div>
                                 <div class="username">@{{ user1.username }}</div>

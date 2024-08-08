@@ -85,7 +85,8 @@ def logout(request):
 
 def userpost(request, user_id):
     print('userpost page, user_id: ', user_id)
-    fullName = UserDetails.objects.get(id=user_id).email_id
+    fullName = UserDetails.objects.get(id=user_id)
+    # usr = UserDetails.objects.get(id=user_id)
     if request.method == 'POST':
         user_postData = request.POST['userpost_content']
         if not user_postData:

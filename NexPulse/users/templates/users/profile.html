@@ -102,18 +102,30 @@
             background-color: var(--form-bg); /* White background for profile section */
             padding: 20px;
             border-radius: 5px;
-            width: 700px;
+            width: 100%;
+            max-width: 600px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+            margin: 0 auto;
         }
 
         .profile h2 {
             color: var(--primary-color);
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: capitalize; /* Capitalize the first letter of each word */
         }
 
         .profile p {
             font-size: 18px;
             color: #555; /* Dark grey for better readability */
-            margin: 20px 0;
+            margin: 10px 0;
+        }
+
+        .profile p strong {
+            display: inline-block;
+            width: 150px;
         }
 
         .edit-btn {
@@ -129,13 +141,13 @@
             background-color: var(--primary-color); /* Match button background */
             color: white; /* White text color */
             transition: background-color 0.3s;
+            display: block;
+            margin: 30px auto 0;
         }
 
         .edit-btn:hover {
             background-color: #e05d5d; /* Darker shade on hover */
         }
-
-
     </style>
 </head>
 <body>
@@ -162,7 +174,6 @@
         <h1>Profile</h1>
         <section class="profile">
             <h2>Welcome, {{ user_details.username }}</h2>
-            <br>
             <p><strong>First Name:</strong> {{ user_details.first_name }}</p>
             <p><strong>Last Name:</strong> {{ user_details.last_name }}</p>
             <p><strong>Email:</strong> {{ user_details.email_id }}</p>
@@ -170,9 +181,7 @@
             <p><strong>Country:</strong> {{ user_details.country }}</p>
             <p><strong>Total Followers:</strong> {{ user_details.totalFollowers }}</p>
         </section>
-        <div class="edit-btn">
-            <a href="{% url 'editprofile' user_id=user_id%}">Edit My Profile</a>
-        </div>
+        <a href="{% url 'editprofile' user_id=user_id%}" class="edit-btn">Edit My Profile</a>
     </div>
 </body>
 </html>
